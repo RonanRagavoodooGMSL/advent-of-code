@@ -1,5 +1,4 @@
 import * as fs from "fs";
-import range from "lodash";
 
 const res: number = fs
   .readFileSync("typescript/2022/day4/test.txt", "utf-8")

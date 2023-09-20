@@ -1,5 +1,4 @@
 import * as fs from "fs";
-import trim from "lodash";
 
 const data = fs
   .readFileSync("typescript/2022/day5/test.txt", "utf-8")

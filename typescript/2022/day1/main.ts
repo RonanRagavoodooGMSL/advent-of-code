@@ -1,5 +1,6 @@
 import * as fs from "fs";
 
+// Part 1
 console.log(
   Math.max(
     ...fs
@@ -13,6 +14,7 @@ console.log(
   )
 );
 
+// Part 2
 console.log(
   fs
     .readFileSync("typescript/2022/day1/test.txt", "utf-8")

@@ -1,5 +1,17 @@
 import * as fs from "fs";
 
+// print(
+//   sum(
+//       [
+//           ord(x[1]) - 87 + (((((ord(x[1]) - ord(x[0])) % 3) + 2) % 3) * 3)
+//           for x in [
+//               line.strip().split(" ")
+//               for line in open("python/2022/day2/test.txt").readlines()
+//           ]
+//       ]
+//   )
+// )
+
 const words: string[] = fs
   .readFileSync("typescript/2022/day2/test.txt", "utf-8")
   .split("\r\n");
