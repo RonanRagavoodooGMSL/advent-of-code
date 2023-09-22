@@ -1,18 +1,5 @@
-res = 0
+# Part 1
+print(len([0 for pair1, pair2 in [(pair1.split("-"), pair2.split("-")) for pair1, pair2 in [line.strip().split(",") for line in open("python/2022/day4/test.txt")]] if (set([x for x in range(int(pair1[0]), int(pair1[1]) + 1)]).issubset(set([y for y in range(int(pair2[0]), int(pair2[1]) + 1)]))) or (set([x for x in range(int(pair2[0]), int(pair2[1]) + 1)]).issubset(set([y for y in range(int(pair1[0]), int(pair1[1]) + 1)])))]))
 
-with open("python/2022/day4/test.txt") as f:
-    for line in f.readlines():
-        pair1, pair2 = line.strip().split(",")
-        if (
-            set([x for x in range(int(pair1[0]), int(pair1[2]) + 1)]).issubset(
-                set([y for y in range(int(pair2[0]), int(pair2[2]) + 1)])
-            )
-        ) or (
-            set([x for x in range(int(pair2[0]), int(pair2[2]) + 1)]).issubset(
-                set([y for y in range(int(pair1[0]), int(pair1[2]) + 1)])
-            )
-        ):
-            print(pair1, pair2)
-            res += 1
-
-print(res)
+# Part 2
+print(len([0 for pair1, pair2 in [(pair1.split("-"), pair2.split("-")) for pair1, pair2 in [line.strip().split(",") for line in open("python/2022/day4/test.txt")]] if (set([x for x in range(int(pair1[0]), int(pair1[1]) + 1)]) & (set([y for y in range(int(pair2[0]), int(pair2[1]) + 1)])))]))

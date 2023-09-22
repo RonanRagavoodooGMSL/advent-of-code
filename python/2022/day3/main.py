@@ -1,29 +1,8 @@
 import string
 
-lwr = string.ascii_lowercase
-upp = string.ascii_uppercase
-scores = {}
+# Part 1
+print(sum([{k: v for (k, v) in list(zip(list(string.ascii_lowercase + string.ascii_uppercase),[priority for priority in range(1, 53)]))}[x] for x in [list(set([x for x in pair[0] if x in pair[1]]))[0] for pair in [(container[:int(len(container) / 2)], container[int(len(container) / 2):]) for container in [line.strip() for line in open("python/2022/day3/test.txt").readlines()]]]]))
 
-for i in range(1, 27):
-    scores[lwr[i - 1]] = i
-for j in range(27, 53):
-    scores[upp[j - 27]] = j
+# Part 2
+print((lambda rucksacks : (sum([[{k: v for (k, v) in list(zip(list(string.ascii_lowercase + string.ascii_uppercase),[priority for priority in range(1, 53)]))}[i] for i in group[0] if i in group[1] and i in group[2]][0] for group in [rucksacks[i : i + 3] for i in range(0, len(rucksacks), 3)]])))([set(x.strip()) for x in open("python/2022/day3/test.txt").readlines()]))
 
-# rucksacks = []
-# commons = []
-# with open("python/2022/day3/test.txt") as f:
-#     for line in f.readlines():
-#         items = line.strip()
-#         container_length = int(len(items) / 2)
-#         rucksacks.append((items[:container_length], items[container_length:]))
-
-# for pair in rucksacks:
-#     commons.extend(set([x for x in pair[0] if x in pair[1]]))
-
-# print(sum([scores[x] for x in commons]))
-
-with open("python/2022/day3/test.txt") as f:
-    # for group in f.read().split("\r\n\r\n"):
-    #     print(group)
-    x = [set(x.strip()) for x in f.readlines()]
-    print([x[i : i + 3] for i in range(0, len(x), 3)])
