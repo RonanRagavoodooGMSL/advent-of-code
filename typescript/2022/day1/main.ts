@@ -24,9 +24,9 @@ console.log(
         return total + Number(current);
       }, 0);
     })
-    .sort((a, b) => b - a)
+    .sort((a: number, b: number) => b - a)
     .slice(0, 3)
-    .reduce((total, current) => {
+    .reduce((total: number, current: number) => {
       return total + current;
     })
 );

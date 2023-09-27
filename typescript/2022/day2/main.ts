@@ -1,48 +1,27 @@
 import * as fs from "fs";
 
-// print(
-//   sum(
-//       [
-//           ord(x[1]) - 87 + (((((ord(x[1]) - ord(x[0])) % 3) + 2) % 3) * 3)
-//           for x in [
-//               line.strip().split(" ")
-//               for line in open("python/2022/day2/test.txt").readlines()
-//           ]
-//       ]
-//   )
-// )
-
-const words: string[] = fs
+const part1: string[] = fs
   .readFileSync("typescript/2022/day2/test.txt", "utf-8")
-  .split("\r\n");
+  .split("\r\n")
+  .map(
+    (line: string) =>
+      line.charCodeAt(2) -
+      87 +
+      ((line.charCodeAt(2) - line.charCodeAt(0) + 2) % 3) * 3
+  )
+  .reduce((total: number, curr: number) => total + curr);
 
-const wins: { [key: string]: string } = {
-  ROCK: "SCISSORS",
-  PAPER: "ROCK",
-  SCISSORS: "PAPER",
-};
-const symbols: { [key: string]: string } = {
-  A: "ROCK",
-  B: "PAPER",
-  C: "SCISSORS",
-  X: "ROCK",
-  Y: "PAPER",
-  Z: "SCISSORS",
-};
-const symbol_score: { [key: string]: number } = {
-  ROCK: 1,
-  PAPER: 2,
-  SCISSORS: 3,
-};
+part1;
 
-const sum = words.reduce((total: number, current: string) => {
-  const pairs = current.split(" ");
-  return (total +=
-    wins[symbols[pairs[1]]] === symbols[pairs[0]]
-      ? symbol_score[symbols[pairs[1]]] + 6
-      : symbols[pairs[0]] === symbols[pairs[1]]
-      ? symbol_score[symbols[pairs[1]]] + 3
-      : symbol_score[symbols[pairs[1]]]);
-}, 0);
+const part2: string[] = fs
+  .readFileSync("typescript/2022/day2/test.txt", "utf-8")
+  .split("\r\n")
+  .map(
+    (line: string) =>
+      (line.charCodeAt(2) - 88) * 3 +
+      ((line.charCodeAt(0) - 151 + line.charCodeAt(2)) % 3) +
+      1
+  )
+  .reduce((total: number, current: number) => total + current);
 
-sum;
+part2;

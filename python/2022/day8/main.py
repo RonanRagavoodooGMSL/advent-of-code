@@ -1,39 +1,8 @@
-height_matrix = [
-   [int(x) for x in line.strip("\n")] for line in open("python/2022/day8/test.txt").readlines()
-]
-vis_matrix = [[1 if (x==0 or x==len(height_matrix[0]) - 1 or y==0 or y==len(height_matrix) - 1) else 0 for x in range(0, len(height_matrix[0]))] for y in range(0, len(height_matrix))]
+hm = [[int(x) for x in l.strip("\n")]for l in open("python/2022/day8/test.txt").readlines()]
+hmt = list(map(list, zip(*hm)))
 
-count = (2 * len(height_matrix)) + (2 * len(height_matrix[0])) - 4
+# Part 1
+print((2 * len(hm)) + (2 * len(hm[0])) - 4 + len([0 for i in range(1, len(hm) - 1) for j in range(1, len(hm[i]) - 1) if (max(hm[i][0:j]) < hm[i][j] or max(hm[i][j + 1 : len(hm[i])]) < hm[i][j] or max(hmt[j][0:i]) < hm[i][j] or max(hmt[j][i + 1 : len(hm)]) < hm[i][j])]))
 
-for i in range(1, len(vis_matrix) - 1):
-    for j in range(1, len(vis_matrix[i]) - 1):
-        if (vis_matrix[i][j - 1] in (1,2)) and (height_matrix[i][j-1] < height_matrix[i][j]):
-            vis_matrix[i][j] = 1
-            count += 1
-        elif (vis_matrix[i-1][j] in (1,2)) and (height_matrix[i-1][j] < height_matrix[i][j]):
-            vis_matrix[i][j] = 1
-            count += 1
-        elif (vis_matrix[i][j - 1] in (1,2)) and (height_matrix[i][j-1] == height_matrix[i][j]):
-            vis_matrix[i][j] = 2
-        elif (vis_matrix[i-1][j] in (1,2)) and (height_matrix[i-1][j] == height_matrix[i][j]):
-            vis_matrix[i][j] = 2
-
-
-for i in range(len(vis_matrix) - 2, 0, -1):
-    for j in range(len(vis_matrix[i]) - 2, 0, -1):
-            if (vis_matrix[i][j] == 1):
-                pass
-            elif (vis_matrix[i][j+1] in (1,2)) and (height_matrix[i][j+1] < height_matrix[i][j]):
-                vis_matrix[i][j] = 1
-                count += 1
-            elif (vis_matrix[i+1][j] in (1,2)) and (height_matrix[i+1][j] < height_matrix[i][j]):
-                vis_matrix[i][j] = 1
-                count += 1
-            elif (vis_matrix[i][j+1] in (1,2)) and (height_matrix[i][j+1] == height_matrix[i][j]):
-                vis_matrix[i][j] = 2
-            elif (vis_matrix[i+1][j] in (1,2)) and (height_matrix[i+1][j] == height_matrix[i][j]):
-                vis_matrix[i][j] = 2
-
-# for x in vis_matrix:
-#     print(" ".join([str(a) for a in x]))
-print(count)
+# Part 2
+print((lambda p : max([p(list(reversed(hm[i][0:j])), hm[i][j]) * p(hm[i][j + 1 : len(hm[i])], hm[i][j]) * p(list(reversed(hmt[j][0:i])), hm[i][j]) * p(hmt[j][i + 1 : len(hm)], hm[i][j]) for i in range(1, len(hm) - 1) for j in range(1, len(hm[i]) - 1) ]))(lambda lst, curr : next((i for i, v in enumerate(lst) if v >= curr), len(lst)-1) + 1))
